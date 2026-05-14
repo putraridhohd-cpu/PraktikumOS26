@@ -23,3 +23,24 @@ terminal pertama langsung mencatat aktivitas tersebut secara real-time:
 ## 4. Ekstrak log ke berkas untuk analisis
 <img width="699" height="77" alt="image" src="https://github.com/user-attachments/assets/af04b2bc-276f-4cbb-b2ec-662992659876" />
 saya dapat 21 baris log SSH untuk hari ini, dan juga Perintah grep tidak menampilkan baris apa pun (kosong), yang berarti layanan SSH nya sudah berjalan sangat bersih hari ini tanpa ada kegagalan login atau error sistem.
+
+
+## TANTANGAN
+<img width="988" height="211" alt="image" src="https://github.com/user-attachments/assets/077df5de-8256-49b5-8116-13daca27df2e" />
+
+### 1. Ekstrak dan Simpan Log Error SSH
+Gunakan perintah journalctl dengan filter unit -u ssh, prioritas -p err, dan rentang waktu --since "24 hours ago", lalu arahkan (redirect) ke berkas:
+```
+journalctl -u ssh -p err --since "24 hours ago" --no-pager > error-ssh-24jam.txt
+```
+
+### 2. Hitung Total Baris Error
+Gunakan perintah wc -l untuk menghitung jumlah baris dalam berkas tersebut:
+<img width="506" height="31" alt="image" src="https://github.com/user-attachments/assets/9a1c4e89-e0a7-4090-8361-b0f6b1dbaa1a" />
+
+### 3. Tampilkan 10 Pesan Error yang Paling Sering Muncul
+Gunakan pipeline dari Bab 3 untuk mengurutkan, menghitung duplikasi, dan mengambil peringkat teratas:
+<img width="743" height="34" alt="image" src="https://github.com/user-attachments/assets/344743b1-5887-48ce-a1b7-3acb675557f5" />
+
+
+
